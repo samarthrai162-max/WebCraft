@@ -488,7 +488,7 @@ const AVAILABLE_THEMES = [
 
 function setBusinessTheme(themeName) {
 
-    if (!AVAILABLE_THEMES.includes(themeName)) {
+    if (!AVAILABLE_THEMES.includes(default)) {
 
         console.warn(
             "WebCraft: Unknown theme:",
