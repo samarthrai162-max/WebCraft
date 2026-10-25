@@ -371,7 +371,7 @@ const BUSINESS_PROFILES = {
 // premium
 
 const WEBSITE_CONFIG = {
-    profile: "default",
+    profile: "salon",
 
     // Leave blank until an authorized business
     // WhatsApp number is available.
@@ -488,7 +488,7 @@ const AVAILABLE_THEMES = [
 
 function setBusinessTheme(themeName) {
 
-    if (!AVAILABLE_THEMES.includes(default)) {
+    if (!AVAILABLE_THEMES.includes(themeName)) {
 
         console.warn(
             "WebCraft: Unknown theme:",
@@ -873,7 +873,87 @@ const selectedProfile =
 
 applyBusinessProfile(selectedProfile);
 
+/* =========================================
+WEBCRAFT — SMART PRICING BUTTONS
+========================================= */
 
-console.info(
-    "First Income 2.0: JavaScript initialized successfully."
+(() => {
+"use strict";
+
+const pricingButtons = document.querySelectorAll(
+    ".pricing-button[data-package]"
 );
+
+const whatsappLink = document.getElementById("whatsapp-link");
+
+if (!pricingButtons.length || !whatsappLink) {
+    return;
+}
+
+pricingButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const packageName = button.dataset.package;
+
+        const message =
+            `Hello WebCraft! I'm interested in the ${packageName} website package. Please share more details.`;
+
+        /*
+         * Preserve the existing WhatsApp number
+         * configured by the main script.js.
+         */
+        const existingHref = whatsappLink.getAttribute("href");
+
+        if (
+            existingHref &&
+            existingHref.startsWith("https://wa.me/")
+        ) {
+            const phone = existingHref
+                .split("?")[0]
+                .replace("https://wa.me/", "");
+
+            whatsappLink.href =
+                `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+        }
+
+        /*
+         * The button still scrolls to Contact.
+         * The visitor can then tap the WhatsApp button.
+         */
+    });
+});
+
+})();
+console.info(
+    "First Income 2.0: JavaScript initialized successfully.");
+  /* ==========================================
+WEBCRAFT — BUSINESS DEMO SELECTOR
+========================================== */
+
+(() => {
+"use strict";
+
+const demoSelector = document.getElementById("business-demo");
+
+if (!demoSelector) {
+    console.warn("WebCraft: Business demo selector not found.");
+    return;
+}
+
+// Show the currently active business profile.
+const currentProfile = BUSINESS_PROFILES[WEBSITE_CONFIG.profile]
+    ? WEBSITE_CONFIG.profile
+    : "default";
+
+demoSelector.value = currentProfile;
+
+// Apply the selected demo when the visitor changes the dropdown.
+demoSelector.addEventListener("change", () => {
+    const selectedProfile = demoSelector.value;
+
+    if (applyBusinessProfile(selectedProfile)) {
+        console.info(
+            `WebCraft: Demo switched to "${selectedProfile}".`
+        );
+    }
+});
+})();
