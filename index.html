@@ -734,42 +734,189 @@
         <div class="contact-points">
 
             <p>✓ Design tailored to your business</p>
-
             <p>✓ Clear project requirements</p>
-
             <p>✓ Transparent pricing</p>
-
             <p>✓ Mobile-friendly website design</p>
 
         </div>
 
     </div>
 
+    <!-- CLIENT ENQUIRY FORM -->
     <div class="contact-card">
 
-        <h3>Let's Discuss Your Project</h3>
+        <h3>Tell Us About Your Project</h3>
 
         <p>
-            Have a business idea? Contact WebCraft
-            to discuss your requirements, project
-            scope and pricing.
+            Fill in the details below to start
+            your website enquiry on WhatsApp.
         </p>
 
+        <form id="client-enquiry-form">
+
+            <div class="form-group">
+
+                <label for="client-name">
+                    Your Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="client-name"
+                    name="clientName"
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                    maxlength="80"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="business-name">
+                    Business Name *
+                </label>
+
+                <input
+                    type="text"
+                    id="business-name"
+                    name="businessName"
+                    placeholder="Enter your business name"
+                    maxlength="100"
+                    required
+                >
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="business-type">
+                    Business Type *
+                </label>
+
+                <select
+                    id="business-type"
+                    name="businessType"
+                    required
+                >
+
+                    <option value="">
+                        Select business type
+                    </option>
+
+                    <option value="General Business">
+                        General Business
+                    </option>
+
+                    <option value="Salon & Beauty">
+                        Salon & Beauty
+                    </option>
+
+                    <option value="Restaurant">
+                        Restaurant
+                    </option>
+
+                    <option value="Coaching & Education">
+                        Coaching & Education
+                    </option>
+
+                    <option value="Repair Services">
+                        Repair Services
+                    </option>
+
+                    <option value="Portfolio">
+                        Portfolio
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="website-package">
+                    Preferred Package *
+                </label>
+
+                <select
+                    id="website-package"
+                    name="websitePackage"
+                    required
+                >
+
+                    <option value="">
+                        Choose a package
+                    </option>
+
+                    <option value="Starter - ₹999">
+                        Starter — ₹999
+                    </option>
+
+                    <option value="Professional - ₹2499">
+                        Professional — ₹2,499
+                    </option>
+
+                    <option value="Premium - ₹4999">
+                        Premium — ₹4,999
+                    </option>
+
+                    <option value="Need guidance">
+                        Not sure — need guidance
+                    </option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="project-requirements">
+                    What Website Do You Need?
+                </label>
+
+                <textarea
+                    id="project-requirements"
+                    name="requirements"
+                    rows="4"
+                    maxlength="1000"
+                    placeholder="Tell us about the pages, features or design you need..."
+                ></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="button button-primary enquiry-submit"
+            >
+                Send Enquiry on WhatsApp →
+            </button>
+
+            <p
+                class="contact-note"
+                id="enquiry-status"
+                aria-live="polite"
+            >
+                Your details will be added to a WhatsApp message.
+            </p>
+
+        </form>
+
+        <!-- EXISTING WHATSAPP LINK PRESERVED -->
         <a
             href="#"
             class="button button-primary contact-whatsapp"
             id="whatsapp-link"
             target="_blank"
             rel="noopener noreferrer"
+            hidden
         >
             Chat On WhatsApp
         </a>
-
-        <p class="contact-note">
-            Send us a message to start the conversation.
-            We'll discuss your requirements before
-            beginning any work.
-        </p>
 
     </div>
 
