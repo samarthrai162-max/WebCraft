@@ -865,13 +865,41 @@ document.documentElement.classList.add(
 );
 
 
+/* ==========================================
+9. INITIALIZATION + SHAREABLE DEMO LINKS
+========================================== */
+
+document.documentElement.classList.add("js-enabled");
+
+// Read the requested demo from the URL.
+const urlParams = new URLSearchParams(window.location.search);
+const requestedDemo = urlParams.get("demo");
+
+// Use the URL demo if valid; otherwise use the configured profile.
 const selectedProfile =
-    BUSINESS_PROFILES[WEBSITE_CONFIG.profile]
-        ? WEBSITE_CONFIG.profile
-        : "default";
+requestedDemo && Object.prototype.hasOwnProperty.call(
+BUSINESS_PROFILES,
+requestedDemo
+)
+? requestedDemo
+: (
+Object.prototype.hasOwnProperty.call(
+BUSINESS_PROFILES,
+WEBSITE_CONFIG.profile
+)
+? WEBSITE_CONFIG.profile
+: "default"
+);
 
-
+// Apply the selected profile.
 applyBusinessProfile(selectedProfile);
+
+// Keep the dropdown synchronized with the selected profile.
+const demoSelector = document.getElementById("business-demo");
+
+if (demoSelector) {
+demoSelector.value = selectedProfile;
+}
 
 /* =========================================
 WEBCRAFT — SMART PRICING BUTTONS
@@ -956,4 +984,96 @@ demoSelector.addEventListener("change", () => {
         );
     }
 });
+})();
+/* ==========================================
+WEBCRAFT — CLIENT ENQUIRY FORM
+========================================== */
+
+(() => {
+"use strict";
+
+const form = document.getElementById("client-enquiry-form");
+const status = document.getElementById("enquiry-status");
+
+if (!form) {
+    console.warn("WebCraft: Client enquiry form not found.");
+    return;
+}
+
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const clientName =
+        document.getElementById("client-name").value.trim();
+
+    const businessName =
+        document.getElementById("business-name").value.trim();
+
+    const businessType =
+        document.getElementById("business-type").value;
+
+    const websitePackage =
+        document.getElementById("website-package").value;
+
+    const requirements =
+        document.getElementById("project-requirements").value.trim();
+
+    if (
+        !clientName ||
+        !businessName ||
+        !businessType ||
+        !websitePackage
+    ) {
+        if (status) {
+            status.textContent =
+                "Please complete all required fields.";
+        }
+        return;
+    }
+
+    // Read the number from the existing WhatsApp configuration.
+    const phone = String(
+        WEBSITE_CONFIG.whatsappNumber || ""
+    ).replace(/[\s()+-]/g, "");
+
+    if (!/^\d{8,15}$/.test(phone)) {
+        if (status) {
+            status.textContent =
+                "WhatsApp is not configured correctly yet.";
+        }
+        return;
+    }
+
+    const message = [
+        "Hello WebCraft! I'd like to enquire about a website.",
+        "",
+        `Client Name: ${clientName}`,
+        `Business Name: ${businessName}`,
+        `Business Type: ${businessType}`,
+        `Preferred Package: ${websitePackage}`,
+        `Requirements: ${requirements || "Not specified"}`,
+        "",
+        "Please share the next steps."
+    ].join("\n");
+
+    const whatsappURL =
+        `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+
+    if (status) {
+        status.textContent =
+            "Opening WhatsApp with your enquiry...";
+    }
+
+    const whatsappWindow = window.open(
+        whatsappURL,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+    if (!whatsappWindow && status) {
+        status.textContent =
+            "WhatsApp could not open automatically. Please allow pop-ups and try again.";
+    }
+});
+
 })();
