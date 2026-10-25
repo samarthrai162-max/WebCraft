@@ -371,7 +371,7 @@ const BUSINESS_PROFILES = {
 // premium
 
 const WEBSITE_CONFIG = {
-    profile: "salon",
+    profile: "default",
 
     // Leave blank until an authorized business
     // WhatsApp number is available.
